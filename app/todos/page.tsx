@@ -1,20 +1,44 @@
-// app/todos/page.tsx
 import React from 'react';
-import TodoList from '../components/TodoList';
-import TodoForm from '../components/TodoForm';
-import { getTodos } from '../../lib/todos';
+import TodoStateOnlyApp from './components/TodoStateOnlyApp';
+
+// Function simulasi untuk fetch data awal
+async function getInitialTodos() {
+  return [
+    {
+      id: 1,
+      title: 'Belajar React Server Components (RSC)',
+      description: 'Memahami dasar RSC di Next.js App Router.',
+      completed: true,
+      createdAt: new Date().toISOString().split('T')[0],
+    },
+    {
+      id: 2,
+      title: 'Memahami Next.js App Router',
+      description: 'Eksplorasi routing dan layout.',
+      completed: false,
+      createdAt: new Date().toISOString().split('T')[0],
+    },
+    {
+      id: 3,
+      title: 'Membuat Aplikasi Todo List',
+      description: 'Latihan praktikum PWF.',
+      completed: false,
+      createdAt: new Date().toISOString().split('T')[0],
+    },
+  ];
+}
 
 export default async function TodosPage() {
-  const todos = await getTodos();
+  const initialTodos = await getInitialTodos();
 
   return (
-    <main className="min-h-screen p-8 bg-gray-50 flex flex-col items-center">
-      <div className="w-full max-w-2xl bg-white p-6 rounded-xl shadow-md border border-gray-100">
-        <h1 className="text-2xl font-bold text-center mb-6 text-gray-800">
-          Daftar Tugas (Todo List)
+    <main className="min-h-screen p-6 md:p-10 bg-white text-dark-70">
+      <div className="w-full max-w-2xl mx-auto space-y-6">
+        <h1 className="text-2xl md:text-3xl font-bold text-dark-70 text-center mb-6">
+          Daftar Tugas (State Only)
         </h1>
-        <TodoForm />
-        <TodoList todos={todos} />
+        {/* Panggil TodoStateOnlyApp yang mengelola function state */}
+        <TodoStateOnlyApp initialTodos={initialTodos} />
       </div>
     </main>
   );
